@@ -17,7 +17,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 	@Override
 	protected void configure(HttpSecurity http) throws Exception {
 		
-		//para o h2
+		//for h2-console
 		http.headers().frameOptions().disable();
 		
 		http.cors().and().csrf().disable();
