@@ -15,24 +15,24 @@ import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
 	@Override
-	protected void configure(HttpSecurity http) throws Exception {		
-
-		//Just for h2-console
+	protected void configure(HttpSecurity http) throws Exception {
+		
+		//para o h2
 		http.headers().frameOptions().disable();
-			
+		
 		http.cors().and().csrf().disable();
 		http.authorizeRequests()
 			.antMatchers("/h2-console/**").permitAll()
-			.antMatchers("/courses/**").permitAll()
+			.antMatchers("/api/tasks/**").permitAll()
 			.anyRequest().authenticated();
 		http.sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS);
 	}
-		
+	
 	@Bean
-	CorsConfigurationSource corsConfigurationSource() {
-		final UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
-		source.registerCorsConfiguration("/**", new CorsConfiguration().applyPermitDefaultValues());
-		return source;
-	}
+	  CorsConfigurationSource corsConfigurationSource() {
+	    final UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
+	    source.registerCorsConfiguration("/**", new CorsConfiguration().applyPermitDefaultValues());
+	    return source;
+	  }
 	
 }
