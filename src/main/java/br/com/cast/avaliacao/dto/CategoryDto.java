@@ -1,36 +1,30 @@
-package br.com.cast.avaliacao.model;
+package br.com.cast.avaliacao.dto;
 
 import java.io.Serializable;
-import java.util.ArrayList;
-import java.util.List;
 
-import javax.persistence.CascadeType;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.OneToMany;
+import javax.validation.constraints.NotBlank;
 
+import br.com.cast.avaliacao.model.Category;
 
-@Entity
-public class Category implements Serializable {
+public class CategoryDto implements Serializable {
 
 	private static final long serialVersionUID = 1L;
 
-	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer id;
+	@NotBlank(message="Preenchimento obrigatório")
 	private String description;
 	
-	@OneToMany(mappedBy = "category", cascade = CascadeType.REMOVE)
-	private List<Course> courses = new ArrayList<>();
-	
-	public Category() {
+	public CategoryDto() {
 	}
 
-	public Category(Integer id, String description) {
+	public CategoryDto(Integer id, String description) {
 		this.id = id;
 		this.description = description;
+	}
+	
+	public CategoryDto(Category category) {
+		this.id = category.getId();
+		this.description = category.getDescription();
 	}
 
 	public Integer getId() {
@@ -65,7 +59,7 @@ public class Category implements Serializable {
 			return false;
 		if (getClass() != obj.getClass())
 			return false;
-		Category other = (Category) obj;
+		CategoryDto other = (CategoryDto) obj;
 		if (id == null) {
 			if (other.id != null)
 				return false;

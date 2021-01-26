@@ -13,7 +13,7 @@ import br.com.cast.avaliacao.repository.CategoryRepository;
 public class DatabaseSeeding implements CommandLineRunner {
 
 	@Autowired
-	CategoryRepository repository;
+	CategoryRepository categoryRepository;
 
 	@Override
 	public void run(String... args) throws Exception {
@@ -23,7 +23,7 @@ public class DatabaseSeeding implements CommandLineRunner {
 		Category quality = new Category(null, "Qualidade");
 		Category process = new Category(null, "Processos");
 	
-		repository.saveAll(Arrays.asList(behavioral, programming, quality, process));
+		categoryRepository.saveAll(Arrays.asList(behavioral, programming, quality, process));
 	}
 	
 }
