@@ -6,7 +6,7 @@ import javax.validation.constraints.NotBlank;
 
 import br.com.cast.avaliacao.model.Category;
 
-public class CategoryDto implements Serializable {
+public class CategoryNewDto implements Serializable {
 
 	private static final long serialVersionUID = 1L;
 
@@ -14,15 +14,15 @@ public class CategoryDto implements Serializable {
 	@NotBlank(message="Preenchimento obrigatório")
 	private String description;
 	
-	public CategoryDto() {
+	public CategoryNewDto() {
 	}
 
-	public CategoryDto(Integer id, String description) {
+	public CategoryNewDto(Integer id, String description) {
 		this.id = id;
 		this.description = description;
 	}
 	
-	public CategoryDto(Category category) {
+	public CategoryNewDto(Category category) {
 		this.id = category.getId();
 		this.description = category.getDescription();
 	}
@@ -59,7 +59,7 @@ public class CategoryDto implements Serializable {
 			return false;
 		if (getClass() != obj.getClass())
 			return false;
-		CategoryDto other = (CategoryDto) obj;
+		CategoryNewDto other = (CategoryNewDto) obj;
 		if (id == null) {
 			if (other.id != null)
 				return false;

@@ -9,6 +9,8 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+
 @Entity
 public class Course implements Serializable {
 
@@ -18,7 +20,9 @@ public class Course implements Serializable {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer id;
 	private String description;
+	@JsonFormat(pattern = "yyyy-MM-dd")
 	private LocalDate begin;
+	@JsonFormat(pattern = "yyyy-MM-dd")
 	private LocalDate end;
 	private Integer studentsQtd;
 	
