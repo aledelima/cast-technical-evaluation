@@ -14,11 +14,11 @@ public interface CourseRepository extends JpaRepository<Course, Integer>{
 	List<Course> findByDescription(String description);
 	
 	
-	@Query("SELECT c FROM Course c WHERE ?2 <> c.category.id AND ?1 BETWEEN c.begin AND c.end")
+	@Query("SELECT c FROM Course c WHERE ?2 <> c.id AND ?1 BETWEEN c.begin AND c.end")
 	List<Course> bookedWithBeginDate(LocalDate begin, Integer categoryId);
 	
 	
-	@Query("SELECT c FROM Course c WHERE ?2 <> c.category.id AND ?1 BETWEEN c.begin AND c.end")
+	@Query("SELECT c FROM Course c WHERE ?2 <> c.id AND ?1 BETWEEN c.begin AND c.end")
 	List<Course> bookedWithEndDate(LocalDate end,  Integer categoryId);
 	
 	

@@ -20,11 +20,12 @@ import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import br.com.cast.avaliacao.dto.CourseDto;
 import br.com.cast.avaliacao.dto.CourseNewDto;
+import br.com.cast.avaliacao.dto.CourseUpdateDto;
 import br.com.cast.avaliacao.model.Course;
 import br.com.cast.avaliacao.service.CourseService;
 
 @RestController
-@RequestMapping("/courses")
+@RequestMapping("/api/courses")
 public class CourseController {
 
 	@Autowired
@@ -37,9 +38,9 @@ public class CourseController {
 	}
 	
 	@GetMapping("/{id}")
-	ResponseEntity<Course> findById(@PathVariable Integer id) {
+	ResponseEntity<CourseDto> findById(@PathVariable Integer id) {
 		Course obj = service.findById(id);
-		return ResponseEntity.ok().body(obj);
+		return ResponseEntity.ok().body(new CourseDto(obj));
 	}
 	
 	@GetMapping("/search/{description}")
@@ -64,7 +65,7 @@ public class CourseController {
 	}
 	
 	@PutMapping("/{id}")
-	ResponseEntity<Void> update(@Valid @RequestBody CourseNewDto dto, @PathVariable Integer id) {
+	ResponseEntity<Void> update(@Valid @RequestBody CourseUpdateDto dto, @PathVariable Integer id) {
 		dto.setId(id);
 		Course obj = service.fromDto(dto);
 		obj = service.update(obj);

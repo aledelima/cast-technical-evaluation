@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import br.com.cast.avaliacao.dto.CourseNewDto;
+import br.com.cast.avaliacao.dto.CourseUpdateDto;
 import br.com.cast.avaliacao.model.Course;
 import br.com.cast.avaliacao.repository.CourseRepository;
 import br.com.cast.avaliacao.service.exception.ObjectNotFoundException;
@@ -50,6 +51,17 @@ public class CourseService {
 	}
 	
 	public Course fromDto(CourseNewDto dto) {	
+		return new Course(
+				dto.getId(),
+				dto.getDescription(),
+				dto.getBegin(),
+				dto.getEnd(),
+				dto.getStudentsQtd(), 
+				categoryService.findById(dto.getCategoryId())
+			);
+	}
+
+	public Course fromDto(CourseUpdateDto dto) {	
 		return new Course(
 				dto.getId(),
 				dto.getDescription(),

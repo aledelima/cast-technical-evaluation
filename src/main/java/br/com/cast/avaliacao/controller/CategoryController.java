@@ -2,6 +2,7 @@ package br.com.cast.avaliacao.controller;
 
 import java.net.URI;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import javax.validation.Valid;
 
@@ -17,33 +18,34 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
+import br.com.cast.avaliacao.dto.CategoryDto;
 import br.com.cast.avaliacao.dto.CategoryNewDto;
 import br.com.cast.avaliacao.model.Category;
 import br.com.cast.avaliacao.service.CategoryService;
 
 @RestController
-@RequestMapping("/categories")
+@RequestMapping("/api/categories")
 public class CategoryController {
 
 	@Autowired
 	CategoryService service;
 	
 	@GetMapping
-	ResponseEntity<List<Category>> findAll() {
+	ResponseEntity<List<CategoryDto>> findAll() {
 		List<Category> list = service.findAll();
-		return ResponseEntity.ok().body(list);
+		return ResponseEntity.ok().body(list.stream().map(c -> new CategoryDto(c)).collect(Collectors.toList()));
 	}
 	
 	@GetMapping("/{id}")
-	ResponseEntity<Category> findById(@PathVariable Integer id) {
+	ResponseEntity<CategoryDto> findById(@PathVariable Integer id) {
 		Category obj = service.findById(id);
-		return ResponseEntity.ok().body(obj);
+		return ResponseEntity.ok().body(new CategoryDto(obj));
 	}
 	
 	@GetMapping("/search/{description}")
-	ResponseEntity<List<Category>> findByDescription(@PathVariable String description) {
+	ResponseEntity<List<CategoryDto>> findByDescription(@PathVariable String description) {
 		List<Category> list = service.findByDescription(description);
-		return ResponseEntity.ok().body(list);
+		return ResponseEntity.ok().body(list.stream().map(c -> new CategoryDto(c)).collect(Collectors.toList()));
 	}
 	
 	@DeleteMapping("/{id}")

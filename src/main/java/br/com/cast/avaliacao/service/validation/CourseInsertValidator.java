@@ -24,19 +24,12 @@ public class CourseInsertValidator implements ConstraintValidator<CourseInsert, 
 	public boolean isValid(CourseNewDto objDto, ConstraintValidatorContext context) {
 		List<FieldMessage> list = new ArrayList<>();
 		
-//		if (objDto.getBegin()==null) {
-//			list.add(new FieldMessage("begin", "Campo de Preenchimento obrigatório"));
-//		}
-//		
-//		if (objDto.getEnd()==null) {
-//			list.add(new FieldMessage("end", "Campo de Preenchimento obrigatório"));
-//		}
-		
-		if (!courseRepository.bookedWithBeginDate(objDto.getBegin(), objDto.getCategoryId()).isEmpty()) {
+		if (!courseRepository.bookedWithBeginDate(objDto.getBegin(), objDto.getId()).isEmpty()) {
+			
 			list.add(new FieldMessage("begin", "Data já ocupada por algum curso"));
 		}
 
-		if (!courseRepository.bookedWithEndDate(objDto.getEnd(), objDto.getCategoryId()).isEmpty()) {
+		if (!courseRepository.bookedWithEndDate(objDto.getEnd(), objDto.getId()).isEmpty()) {
 			list.add(new FieldMessage("end", "Data já ocupada por algum curso"));
 		}
 		

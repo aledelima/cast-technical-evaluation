@@ -3,44 +3,40 @@ package br.com.cast.avaliacao.dto;
 import java.io.Serializable;
 import java.time.LocalDate;
 
-import br.com.cast.avaliacao.model.Course;
+import javax.validation.constraints.FutureOrPresent;
+import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.NotNull;
 
-public class CourseDto implements Serializable {
+import br.com.cast.avaliacao.service.validation.CourseUpdate;
+
+@CourseUpdate
+public class CourseUpdateDto implements Serializable {
 
 	private static final long serialVersionUID = 1L;
 
 	private Integer id;
+	@NotEmpty(message="Preenchimento obrigatório")
 	private String description;
+	@NotNull(message="Preenchimento Obrigatório") @FutureOrPresent(message="Data com valor expirado")
 	private LocalDate begin;
+	@NotNull(message="Preenchimento Obrigatório") @FutureOrPresent(message="Data com valor expirado")
 	private LocalDate end;
 	private Integer studentsQtd;
+	@NotNull
 	private Integer categoryId;
-	private String categoryDescription;
-	
-	public CourseDto() {
-	}
 
-	public CourseDto(Course course) {
-		this.id = course.getId();
-		this.description = course.getDescription();
-		this.begin = course.getBegin();		
-		this.end = course.getEnd();
-		this.studentsQtd = course.getStudentsQtd();
-		this.categoryId = course.getCategory().getId();
-		this.categoryDescription = course.getCategory().getDescription();
+	public CourseUpdateDto() {
 	}
 	
-	public CourseDto(Integer id, String description, LocalDate begin, LocalDate end, Integer studentsQtd,
-			Integer categoryId, String categoryDescription) {
+	public CourseUpdateDto(Integer id, String description, LocalDate begin, LocalDate end, Integer studentsQtd, Integer categoryId) {
 		this.id = id;
 		this.description = description;
 		this.begin = begin;
 		this.end = end;
 		this.studentsQtd = studentsQtd;
 		this.categoryId = categoryId;
-		this.categoryDescription = categoryDescription;
 	}
-
+	
 	public Integer getId() {
 		return id;
 	}
@@ -76,8 +72,8 @@ public class CourseDto implements Serializable {
 	public Integer getStudentsQtd() {
 		return studentsQtd;
 	}
-	
-    public void setStudentsQtd(Integer studentsQtd) {
+
+	public void setStudentsQtd(Integer studentsQtd) {
 		this.studentsQtd = studentsQtd;
 	}
 
@@ -87,14 +83,6 @@ public class CourseDto implements Serializable {
 
 	public void setCategoryId(Integer categoryId) {
 		this.categoryId = categoryId;
-	}
-    
-	public String getCategoryDescription() {
-		return categoryDescription;
-	}
-
-	public void setCategoryDescription(String categoryDescription) {
-		this.categoryDescription = categoryDescription;
 	}
 	
 }
